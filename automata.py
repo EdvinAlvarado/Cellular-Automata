@@ -6,7 +6,7 @@ shape = (30, 30)
 rowsize = shape[0]
 colsize = shape[1]
 # grid = np.zeros(shape, dtype='b')
-grid = np.random.randint(2, size=shape, dtype='b')
+
 # grid[0, 0] = 1
 # grid[1, 2] = 1
 # grid[0, 1] = 1
@@ -60,23 +60,29 @@ def adjacent(x, y, matrix):
 		return (matrix[y, x-1], matrix[y-1, x], matrix[y, x+1], matrix[y+1, x])
 
 
-print("before:")
-print(grid)
-print("after:")
-for runs in range(3000):
-	for j in range(rowsize):
-		for i in range(colsize):
-			if grid[j][i] == 0 and sum(adjacent(i, j, grid)) == 0:
-			# if grid[j][i] == 0 and diagonal_adjacent(i, j, grid).sum() == 0:
-				grid[j][i] = 1
-			elif grid[j][i] == 1 and diagonal_adjacent(i, j, grid).sum() - 1 > 0:
-				grid[j][i] = 0
+max_ratio = 0
+for runs in range(5):
+	grid = np.random.randint(2, size=shape, dtype='b')
+	print("before:")
+	print(grid)
+	print("after:")
+	for runs in range(1000):
+		for j in range(rowsize):
+			for i in range(colsize):
+				if grid[j][i] == 0 and sum(adjacent(i, j, grid)) == 0:
+				# if grid[j][i] == 0 and diagonal_adjacent(i, j, grid).sum() == 0:
+					grid[j][i] = 1
+				elif grid[j][i] == 1 and diagonal_adjacent(i, j, grid).sum() - 1 > 0:
+					grid[j][i] = 0
 
-print(grid)
-print(grid.shape)
-print(grid.dtype)
+	print(grid)
+	# print(grid.shape)
+	# print(grid.dtype)
 
-nonzero = np.count_nonzero(grid)
-gridsize = rowsize * colsize
+	nonzero = np.count_nonzero(grid)
+	gridsize = rowsize * colsize
+	ratio = gridsize / nonzero
+	print("grid:water ratio {0:f} \n".format(ratio))
+	max_ratio = max(max_ratio, ratio)
 
-print("grid:water ratio {0:f}".format(gridsize / nonzero))
+print("HIGHEST grid:water ratio {0:f}".format(ratio))
