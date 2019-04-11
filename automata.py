@@ -2,7 +2,8 @@ import numpy as np
 # import sys2aq
 np.set_printoptions(threshold=np.inf)
 
-shape = (30, 30)
+### Change the size of the matrix here.
+shape = (50, 50)
 rowsize = shape[0]
 colsize = shape[1]
 # grid = np.zeros(shape, dtype='b')
@@ -61,11 +62,13 @@ def adjacent(x, y, matrix):
 
 
 max_ratio = 0
-for runs in range(5):
+# Change the amount of unique initial conditions.
+for runs in range(20):
 	grid = np.random.randint(2, size=shape, dtype='b')
-	print("before:")
-	print(grid)
-	print("after:")
+	# print("before:")
+	# print(grid)
+	# print("after:")
+	# how many iterations for each initial conditions
 	for runs in range(1000):
 		for j in range(rowsize):
 			for i in range(colsize):
@@ -75,7 +78,7 @@ for runs in range(5):
 				elif grid[j][i] == 1 and diagonal_adjacent(i, j, grid).sum() - 1 > 0:
 					grid[j][i] = 0
 
-	print(grid)
+	# print(grid)
 	# print(grid.shape)
 	# print(grid.dtype)
 
@@ -83,6 +86,8 @@ for runs in range(5):
 	gridsize = rowsize * colsize
 	ratio = gridsize / nonzero
 	print("grid:water ratio {0:f} \n".format(ratio))
-	max_ratio = max(max_ratio, ratio)
+	# print("current max ratio {0:f}".format(max_ratio))
+	max_ratio = max((max_ratio, ratio))
 
-print("HIGHEST grid:water ratio {0:f}".format(ratio))
+print("HIGHEST grid:water ratio {0:f}".format(max_ratio))
+print("dirt percentage: {0:4f}%".format((max_ratio - 1) / max_ratio * 100))
