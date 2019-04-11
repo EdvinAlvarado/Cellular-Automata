@@ -5,11 +5,12 @@ np.set_printoptions(threshold=np.inf)
 shape = (30, 30)
 rowsize = shape[0]
 colsize = shape[1]
-grid = np.zeros(shape, dtype='b')
-# grid[2, 2] = 1
+# grid = np.zeros(shape, dtype='b')
+grid = np.random.randint(2, size=shape, dtype='b')
 # grid[0, 0] = 1
+# grid[1, 2] = 1
 # grid[0, 1] = 1
-grid[0, :6] = 1
+# grid[:3, :6] = 1
 # grid[0, colsize-1] = 1
 # grid[rowsize-1, 0] = 1
 # grid[rowsize-1, colsize-1] = 1
@@ -59,9 +60,9 @@ def adjacent(x, y, matrix):
 		return (matrix[y, x-1], matrix[y-1, x], matrix[y, x+1], matrix[y+1, x])
 
 
-# print("before:")
-# print(grid)
-# print("after:")
+print("before:")
+print(grid)
+print("after:")
 for runs in range(3000):
 	for j in range(rowsize):
 		for i in range(colsize):
@@ -78,4 +79,4 @@ print(grid.dtype)
 nonzero = np.count_nonzero(grid)
 gridsize = rowsize * colsize
 
-print("{0:f}".format(gridsize / nonzero))
+print("grid:water ratio {0:f}".format(gridsize / nonzero))
