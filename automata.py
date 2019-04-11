@@ -85,9 +85,9 @@ for runs in range(20):
 	nonzero = np.count_nonzero(grid)
 	gridsize = rowsize * colsize
 	ratio = gridsize / nonzero
-	print("grid:water ratio {0:f} \n".format(ratio))
+	print("grid:water ratio {:f} \n".format(ratio))
 	# print("current max ratio {0:f}".format(max_ratio))
 	max_ratio = max((max_ratio, ratio))
 
-print("HIGHEST grid:water ratio {0:f}".format(max_ratio))
-print("dirt percentage: {0:4f}%".format((max_ratio - 1) / max_ratio * 100))
+print("HIGHEST grid:water ratio {:f}".format(max_ratio))
+print("dirt percentage: {:.2%}%".format((max_ratio - 1) / max_ratio))
