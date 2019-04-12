@@ -5,7 +5,6 @@
 #include<array>
 
 using namespace std;
-
 //global values
 const int rowsize = 30;	
 const int colsize = 30;
@@ -120,29 +119,6 @@ void prettyPrintArray(array<array<int,rowsize>, colsize> &matrix) {
 	}
 }
 
-// all the water.
-// int nonzero (array<array<int,rowsize>, colsize> &matrix) {
-// 	int sum = 0;
-// 	for (int y = 0; y < rowsize; y++) {
-// 		for (int x = 0; x < colsize; x++) {
-// 			sum += matrix[y][x];
-// 		}
-// 	}
-// 	return sum;
-// } 
-
-// int drydirt (array<array<int,rowsize>, colsize> &matrix) {
-// 	int drydirt_num = 0;
-// 	for (int y = 0; y < rowsize; y++) {
-// 		for (int x = 0; x < colsize; x++) {
-// 			if ((adjacent(matrix, y, x) == 0) && (matrix[y][x] == 0)) {
-// 				drydirt_num += 1;
-// 			}
-// 		}
-// 	}
-// 	return drydirt_num;
-// }
-
 struct grid_data_struct {
 	int drydirt;
 	int water;
@@ -180,25 +156,23 @@ int main() {
 				for (int x = 0; x < colsize; x++) {
 					if ((grid[y][x] == 0) && (adjacent(grid, y, x) == 0)) {
 						grid[y][x] = 1;
-					} else if ((grid[y][x] == 1) && (adjacent(grid, y, x) > 0)) {
+					} else if ((grid[y][x] == 1) && (diagonal_adjacent(grid, y, x) > 0)) {
 						grid[y][x] = 0;
 					}
 				}
 			}
 		} // different iteration.
 		cout << "after" << endl;
-		prettyPrintArray(grid); 		
+		prettyPrintArray(grid); 
 
+		// Stats
 		auto gridstats = grid_data(grid);
 		float gridsize = rowsize * colsize;
 		// float wetdirt = gridsize - gridstats.drydirt - gridstats.water;
 		float dirtper = gridstats.wetdirt / gridsize;
-		// cout << "ratio: " << ratio << endl;
-		cout << "wet dirt % " << dirtper * 100<< "%" << endl;
+		cout << "wet dirt % " << dirtper * 100 << "%" << endl;
 		max_ratio = max(max_ratio, dirtper);
 		cout << endl;
 	} // different initial conditions.
-	// cout << "max grid:water ratio " << max_ratio << endl;
 	cout << "wet dirt percentage:  " << max_ratio * 100 << "%" << endl;
-	// cout << "dirt percentage: " << (max_ratio - 1) / max_ratio * 100 << "%" << endl;
 }

@@ -63,7 +63,7 @@ def adjacent(x, y, matrix):
 
 max_ratio = 0
 # Change the amount of unique initial conditions.
-for runs in range(20):
+for runs in range(10):
 	grid = np.random.randint(2, size=shape, dtype='b')
 	# print("before:")
 	# print(grid)
