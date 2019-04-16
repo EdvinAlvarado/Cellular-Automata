@@ -1,15 +1,20 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<ctime>
-#include<array>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <ctime>
+#include <array>
 #include <chrono>
 #include <thread>
+#include <stdlib.h> //system access
 
 using namespace std;
 //global values
-const int rowsize = 30;	
+const int rowsize = 50;	
 const int colsize = 50;
+
+void clrscr() {
+	cout << "\033[2J\033[1;1H";
+}
 
 
 void randintMatrix(array<array<int,rowsize>, colsize> &matrix) {
@@ -123,9 +128,9 @@ void prettyPrintArray(array<array<int,rowsize>, colsize> &matrix) {
 	for (int y = 0; y < rowsize; y++) {
 		for (int x = 0; x < colsize; x++) {
 			if (matrix[y][x] == 1) {
-				cout << "█";
+				cout << "W"; // █
 			} else {
-				cout << "~";	
+				cout << "-";	
 			}
 			cout << " ";
 		}
@@ -161,7 +166,7 @@ int main() {
 	srand(time(NULL)); // set rand seed
 	array<array<int, rowsize>, colsize> grid; // initialize 2D array
 	array<array<int, rowsize>, colsize> change_grid = {}; // with ={} it depreciate the needs for zerofillmatrix
-	float max_ratio = 0; 
+	// float max_ratio = 0; 
 	for (int runs = 0; runs < 1; runs++) { // sets different initial conditions
 		randintMatrix(grid);
 		// zerofillMatrix(change_grid); // zero fill is broken. gives random numbers.
@@ -189,8 +194,9 @@ int main() {
 			}
 			copyMatrix(change_grid, grid);
 			cout << endl;
-			cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
-			this_thread::sleep_for(chrono::milliseconds(100));
+			// cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
+			system("CLS");
+			// this_thread::sleep_for(chrono::milliseconds(100));
 			prettyPrintArray(grid); 
 		} // different iteration.
 		// cout << "after" << endl;
@@ -206,4 +212,5 @@ int main() {
 		// cout << endl;
 	} // different initial conditions.
 	// cout << "wet dirt percentage:  " << max_ratio * 100 << "%" << endl;
+	system("pause");
 }

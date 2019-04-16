@@ -7,7 +7,7 @@
 
 using namespace std;
 //global values
-const int rowsize = 30;	
+const int rowsize = 20;	
 const int colsize = 30;
 
 
