@@ -196,7 +196,7 @@ int main() {
 			copyMatrix(change_grid, grid);
 			// cout << endl;
 			// cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
-			// system("CLS");
+			system("CLS");
 			// this_thread::sleep_for(chrono::milliseconds(100));
 			prettyPrintArray(grid); 
 		} // different iteration.
