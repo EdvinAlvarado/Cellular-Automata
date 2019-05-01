@@ -130,7 +130,8 @@ void prettyPrintArray(array<array<int,rowsize>, colsize> &matrix) {
 			if (matrix[y][x] == 1) {
 				cout << "W"; // █
 			} else {
-				cout << "-";	
+				// cout << "-";
+				cout << " ";
 			}
 			cout << " ";
 		}
@@ -138,42 +139,42 @@ void prettyPrintArray(array<array<int,rowsize>, colsize> &matrix) {
 	}
 }
 
-struct grid_data_struct {
-	int drydirt;
-	int water;
-	int wetdirt;
-};
 
-grid_data_struct grid_data (array<array<int,rowsize>, colsize> &matrix) {
-	int drydirt_num = 0;
-	int water_num = 0;
-	int wetdirt_num = 0;
-	for (int y = 0; y < rowsize; y++) {
-		for (int x = 0; x < colsize; x++) {
-			water_num += matrix[y][x];
-			if ((adjacent(matrix, y, x) == 0) && (matrix[y][x] == 0)) {
-				drydirt_num += 1;
-			}
-			if ((adjacent(matrix, y, x) > 0) && (matrix[y][x] == 0)) {
-				wetdirt_num += 1;
-			}
-		}
-	}
-	return {drydirt_num, water_num, wetdirt_num};
-}
+// struct grid_data_struct {
+// 	int drydirt;
+// 	int water;
+// 	int wetdirt;
+// };
+
+// grid_data_struct grid_data (array<array<int,rowsize>, colsize> &matrix) {
+// 	int drydirt_num = 0;
+// 	int water_num = 0;
+// 	int wetdirt_num = 0;
+// 	for (int y = 0; y < rowsize; y++) {
+// 		for (int x = 0; x < colsize; x++) {
+// 			water_num += matrix[y][x];
+// 			if ((adjacent(matrix, y, x) == 0) && (matrix[y][x] == 0)) {
+// 				drydirt_num += 1;
+// 			}
+// 			if ((adjacent(matrix, y, x) > 0) && (matrix[y][x] == 0)) {
+// 				wetdirt_num += 1;
+// 			}
+// 		}
+// 	}
+// 	return {drydirt_num, water_num, wetdirt_num};
+// }
 
 int main() {
 	srand(time(NULL)); // set rand seed
 	array<array<int, rowsize>, colsize> grid; // initialize 2D array
 	array<array<int, rowsize>, colsize> change_grid = {}; // with ={} it depreciate the needs for zerofillmatrix
-	// float max_ratio = 0; 
 	for (int runs = 0; runs < 1; runs++) { // sets different initial conditions
 		randintMatrix(grid);
 		// zerofillMatrix(change_grid); // zero fill is broken. gives random numbers.
-		cout << "before" << endl;
+		// cout << "before" << endl;
 		prettyPrintArray(grid); 
-		cout << "change grid" << endl;
-		prettyPrintArray(change_grid); 
+		// cout << "change grid" << endl;
+		// prettyPrintArray(change_grid); 
 		for (int iterations = 0; iterations < 100; iterations++) { // iterations in each condition.
 			for (int y = 0; y < rowsize; y++) {
 				for (int x = 0; x < colsize; x++) {
@@ -193,9 +194,9 @@ int main() {
 				}
 			}
 			copyMatrix(change_grid, grid);
-			cout << endl;
+			// cout << endl;
 			// cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
-			system("CLS");
+			// system("CLS");
 			// this_thread::sleep_for(chrono::milliseconds(100));
 			prettyPrintArray(grid); 
 		} // different iteration.
