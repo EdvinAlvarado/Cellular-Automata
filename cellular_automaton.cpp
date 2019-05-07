@@ -5,16 +5,16 @@
 #include <array>
 #include <chrono>
 #include <thread>
-#include <stdlib.h> //system access
+#include <stdlib.h> //system access 
 
 using namespace std;
 //global values
 const int rowsize = 50;	
 const int colsize = 50;
 
-void clrscr() {
-	cout << "\033[2J\033[1;1H";
-}
+// void clrscr() {
+// 	cout << "\033[2J\033[1;1H";
+// }
 
 
 void randintMatrix(array<array<int,rowsize>, colsize> &matrix) {
@@ -22,7 +22,7 @@ void randintMatrix(array<array<int,rowsize>, colsize> &matrix) {
 		for (int x = 0; x < colsize; x++) {
 			matrix[y][x] = rand() % 2; // 0 or 1
 		}
-	}
+	} 
 }
 
 // void zerofillMatrix(array<array<int, rowsize>, colsize> &matrix) {
