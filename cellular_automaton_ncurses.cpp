@@ -6,12 +6,13 @@
 #include <chrono>
 #include <thread>
 #include <stdlib.h> //system access
+// #include <curses.h>
 #include <ncurses.h>
 
 using namespace std;
 //global values
-const int rowsize = 50;	
-const int colsize = 50;
+const int rowsize = 60;	
+const int colsize = 60;
 
 // void clrscr() {
 // 	cout << "\033[2J\033[1;1H";
@@ -26,28 +27,11 @@ void randintMatrix(array<array<int,rowsize>, colsize> &matrix) {
 	}
 }
 
-// void zerofillMatrix(array<array<int, rowsize>, colsize> &matrix) {
-// 	for (int y = 0; y < rowsize; y++) {
-// 		for (int x = 0; x < colsize; x++) {
-// 			matrix[y][x] = 0; 
-// 		}
-// 	}
-// }
-
 void copyMatrix(array<array<int, rowsize>, colsize> &change_matrix, array<array<int, rowsize>, colsize> &matrix) {
 	for (int y = 0; y < rowsize; y++) {
 		for (int x = 0; x < colsize; x++) {
 			matrix[y][x] = change_matrix[y][x];
 		}
-	}
-}
-
-void printArray(array<array<int,rowsize>, colsize> &matrix) {
-	for (int y = 0; y < rowsize; y++) {
-		for (int x = 0; x < colsize; x++) {
-			cout << matrix[y][x] << " "; 
-		}
-		cout << endl;
 	}
 }
 
@@ -125,26 +109,11 @@ int diagonal_adjacent(array<array<int,rowsize>, colsize> &matrix, int row, int c
 	return adj_val;
 }
 
-void prettyPrintArray(array<array<int,rowsize>, colsize> &matrix) {
-	for (int y = 0; y < rowsize; y++) {
-		for (int x = 0; x < colsize; x++) {
-			if (matrix[y][x] == 1) {
-				cout << "W"; // █
-			} else {
-				// cout << "-";
-				cout << " ";
-			}
-			cout << " ";
-		}
-		cout << endl;
-	}
-}
-
 void AnimationPrint(array<array<int,rowsize>, colsize> &matrix, WINDOW * windows) {
 	for (int y = 0; y < rowsize; y++) {
 		for (int x = 0; x < colsize; x++) {
 			if (matrix[y][x] == 1) {
-				waddch(windows, 'W');
+				waddch(windows, '@');
 			} else {
 				waddch(windows, ' ');
 			}
@@ -158,7 +127,7 @@ void AnimationPrint(array<array<int,rowsize>, colsize> &matrix, WINDOW * windows
 int main() {
 	srand(time(NULL)); // set rand seed
 	array<array<int, rowsize>, colsize> grid; // initialize 2D array
-	array<array<int, rowsize>, colsize> change_grid = {}; // with ={} it depreciate the needs for zerofillmatrix
+	array<array<int, rowsize>, colsize> change_grid = {};
 	initscr(); // Needed to use any curses packages
 	WINDOW * win = newwin(rowsize, colsize, 0, 0); // create the window object 
 	for (int runs = 0; runs < 1; runs++) { // sets different initial conditions
@@ -169,7 +138,7 @@ int main() {
 		AnimationPrint(grid, win);
 		// cout << "change grid" << endl;
 		// prettyPrintArray(change_grid); 
-		for (int iterations = 0; iterations < 100; iterations++) { // iterations in each condition.
+		for (int iterations = 0; iterations < 1000; iterations++) { // iterations in each condition.
 			for (int y = 0; y < rowsize; y++) {
 				for (int x = 0; x < colsize; x++) {
 					if (grid[y][x] == 1) {
