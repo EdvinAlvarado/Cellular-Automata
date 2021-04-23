@@ -12,11 +12,6 @@ using namespace std;
 const int rowsize = 50;	
 const int colsize = 50;
 
-// void clrscr() {
-// 	cout << "\033[2J\033[1;1H";
-// }
-
-
 void randintMatrix(array<array<int,rowsize>, colsize> &matrix) {
 	for (int y = 0; y < rowsize; y++) {
 		for (int x = 0; x < colsize; x++) {
@@ -24,14 +19,6 @@ void randintMatrix(array<array<int,rowsize>, colsize> &matrix) {
 		}
 	} 
 }
-
-// void zerofillMatrix(array<array<int, rowsize>, colsize> &matrix) {
-// 	for (int y = 0; y < rowsize; y++) {
-// 		for (int x = 0; x < colsize; x++) {
-// 			matrix[y][x] = 0; 
-// 		}
-// 	}
-// }
 
 void copyMatrix(array<array<int, rowsize>, colsize> &change_matrix, array<array<int, rowsize>, colsize> &matrix) {
 	for (int y = 0; y < rowsize; y++) {
@@ -140,37 +127,12 @@ void prettyPrintArray(array<array<int,rowsize>, colsize> &matrix) {
 }
 
 
-// struct grid_data_struct {
-// 	int drydirt;
-// 	int water;
-// 	int wetdirt;
-// };
-
-// grid_data_struct grid_data (array<array<int,rowsize>, colsize> &matrix) {
-// 	int drydirt_num = 0;
-// 	int water_num = 0;
-// 	int wetdirt_num = 0;
-// 	for (int y = 0; y < rowsize; y++) {
-// 		for (int x = 0; x < colsize; x++) {
-// 			water_num += matrix[y][x];
-// 			if ((adjacent(matrix, y, x) == 0) && (matrix[y][x] == 0)) {
-// 				drydirt_num += 1;
-// 			}
-// 			if ((adjacent(matrix, y, x) > 0) && (matrix[y][x] == 0)) {
-// 				wetdirt_num += 1;
-// 			}
-// 		}
-// 	}
-// 	return {drydirt_num, water_num, wetdirt_num};
-// }
-
 int main() {
 	srand(time(NULL)); // set rand seed
 	array<array<int, rowsize>, colsize> grid; // initialize 2D array
 	array<array<int, rowsize>, colsize> change_grid = {}; // with ={} it depreciate the needs for zerofillmatrix
 	for (int runs = 0; runs < 1; runs++) { // sets different initial conditions
 		randintMatrix(grid);
-		// zerofillMatrix(change_grid); // zero fill is broken. gives random numbers.
 		// cout << "before" << endl;
 		prettyPrintArray(grid); 
 		// cout << "change grid" << endl;
@@ -200,18 +162,6 @@ int main() {
 			// this_thread::sleep_for(chrono::milliseconds(100));
 			prettyPrintArray(grid); 
 		} // different iteration.
-		// cout << "after" << endl;
-		// prettyPrintArray(grid); 
-
-		// Stats
-		// auto gridstats = grid_data(grid);
-		// float gridsize = rowsize * colsize;
-		// // float wetdirt = gridsize - gridstats.drydirt - gridstats.water;
-		// float dirtper = gridstats.wetdirt / gridsize;
-		// cout << "wet dirt % " << dirtper * 100 << "%" << endl;
-		// max_ratio = max(max_ratio, dirtper);
-		// cout << endl;
 	} // different initial conditions.
-	// cout << "wet dirt percentage:  " << max_ratio * 100 << "%" << endl;
 	system("pause");
 }
