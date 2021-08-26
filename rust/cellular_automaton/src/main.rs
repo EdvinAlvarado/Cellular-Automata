@@ -5,7 +5,7 @@ extern crate sdl2;
 use sdl2::pixels::Color;
 use sdl2::event::Event;
 
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 const fn cell_size() -> usize {2}
 const fn matrix_size() -> (usize, usize) {(500, 500)}
@@ -61,7 +61,8 @@ fn main() {
     // init
     let mut grid = init_rand_matrix(); 
     let mut change_grid = vec![[0; matrix_size().0]; matrix_size().1]; 
-    // let mut timer = Instant::now();
+    let mut timer = Instant::now();
+    let ms_per_frame: u64 = 100;
 
     'main: loop {
         // Escape event
@@ -83,10 +84,15 @@ fn main() {
         }
         // Presentation
         io.present();
-        grid = change_grid.clone();
-        change_grid = vec![[0; matrix_size().0]; matrix_size().1];
         io.set_draw_color(Color::BLACK);
         io.clear();
-        std::thread::sleep(Duration::from_millis(100))
+
+        grid = change_grid.clone();
+        change_grid = vec![[0; matrix_size().0]; matrix_size().1];
+        
+        if timer.elapsed().as_millis() < ms_per_frame as u128 {
+            std::thread::sleep(Duration::from_millis(ms_per_frame - timer.elapsed().as_millis() as u64));
+        }
+        timer = Instant::now();
     }
 }
